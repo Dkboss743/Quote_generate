@@ -2,9 +2,8 @@ import { useParams } from "react-router-dom";
 import Card from "../UI/Card";
 import HighlightedQuote from "../quotes/HighlightedQuote";
 import { Link, Route, useRouteMatch } from "react-router-dom";
-import CommentsList from "../comments/CommentsList";
 import Comments from "../comments/Comments";
-import { useSelector } from "react-redux";
+// import { useSelector } from "react-redux";
 import NoQuotesFound from "../quotes/NoQuotesFound";
 import useHttp from "../hooks/use-http";
 import { getSingleQuote } from "../lib/api";
@@ -17,15 +16,14 @@ const QuoteDetail = () => {
     data: loadedQuotes,
     error,
   } = useHttp(getSingleQuote, true);
-  const comments = useSelector((state) => state.comments.comments);
+  // const comments = useSelector((state) => state.comments.comments);
 
   const params = useParams();
-  const comms = comments[params.quoteId] || [];
-  const quotes = useSelector((state) => state.quotes.quotes);
+  const { quoteId } = params;
   const match = useRouteMatch();
   useEffect(() => {
-    sendRequest(params.quoteId);
-  }, [sendRequest, params.quoteId]);
+    sendRequest(quoteId);
+  }, [sendRequest, quoteId]);
 
   if (status === "pending") {
     return (
@@ -56,7 +54,6 @@ const QuoteDetail = () => {
 
       <Route path={`${match.path}/comments`}>
         <Comments id={+params.quoteId}></Comments>
-        <CommentsList comments={comms}></CommentsList>
       </Route>
     </Card>
   );
