@@ -2,7 +2,6 @@ import { Fragment } from "react";
 import { useHistory, useLocation } from "react-router-dom";
 import QuoteItem from "./QuoteItem";
 import classes from "./QuoteList.module.css";
-import { useSelector } from "react-redux";
 const sortQuotes = (quotes, ascending) => {
   let sortQote = [...quotes];
   return sortQote.sort((quoteA, quoteB) => {
@@ -14,14 +13,13 @@ const sortQuotes = (quotes, ascending) => {
   });
 };
 const QuoteList = (props) => {
-  const quotes = useSelector((state) => state.quotes.quotes);
   const history = useHistory();
   const location = useLocation();
 
   const queryParams = new URLSearchParams(location.search);
   const isSortingAscending = queryParams.get("sort") === "asc";
 
-  const sortedQuotes = sortQuotes(quotes, isSortingAscending);
+  const sortedQuotes = sortQuotes(props.quotes, isSortingAscending);
   const changeSortingHandler = () => {
     history.push({
       pathname: location.pathname,
