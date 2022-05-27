@@ -1,11 +1,11 @@
-import { Route, Routes, Navigate } from "react-router-dom";
+import { Route, Routes, Link, Navigate } from "react-router-dom";
 
 import AddQuotes from "./components/pages/AddQuotes";
 import AllQuotes from "./components/pages/AllQuotes";
 import QuoteDetail from "./components/pages/QuoteDetail";
 import Layout from "./components/layout/layout";
 import NotFound from "./components/pages/NotFound";
-
+import Comments from "./components/comments/Comments";
 function App() {
   return (
     <div>
@@ -20,7 +20,18 @@ function App() {
           <Route
             path="/all-quotes/:quoteId/*"
             element={<QuoteDetail></QuoteDetail>}
-          ></Route>
+          >
+            <Route path={"comments"} element={<Comments></Comments>}></Route>
+            <Route
+              path={""}
+              element={
+                <Link className="btn--flat centered" to={`comments`}>
+                  Load Comments
+                </Link>
+              }
+            ></Route>
+          </Route>
+
           <Route path="*" element={<NotFound></NotFound>}></Route>
         </Routes>
       </Layout>

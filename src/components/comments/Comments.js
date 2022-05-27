@@ -1,18 +1,19 @@
 import { useEffect, useState } from "react";
-
+import { useParams } from "react-router-dom";
 import classes from "./Comments.module.css";
 import NewCommentForm from "./NewCommentForm";
 import useHttp from "../hooks/use-http";
 import { getAllComments } from "../lib/api";
 import LoadingSpinner from "../UI/LoadingSpinner";
 import CommentsList from "./CommentsList";
-const Comments = (props) => {
+const Comments = () => {
   const [isAddingComment, setIsAddingComment] = useState(false);
   const startAddCommentHandler = () => {
     setIsAddingComment(true);
   };
+  const params = useParams();
 
-  const { id } = props;
+  const id = params.quoteId;
   const { sendRequest, status, data: loadedComments } = useHttp(getAllComments);
 
   useEffect(() => {
@@ -46,7 +47,7 @@ const Comments = (props) => {
         </button>
       )}
       {isAddingComment && (
-        <NewCommentForm id={props.id} onAddedComment={addedCommentHandler} />
+        <NewCommentForm id={id} onAddedComment={addedCommentHandler} />
       )}
       {comments}
     </section>

@@ -1,8 +1,9 @@
-import { useParams } from "react-router-dom";
+import { useParams, Outlet } from "react-router-dom";
 import Card from "../UI/Card";
 import HighlightedQuote from "../quotes/HighlightedQuote";
 import { Link, Route, Routes } from "react-router-dom";
 import Comments from "../comments/Comments";
+
 // import { useSelector } from "react-redux";
 import NoQuotesFound from "../quotes/NoQuotesFound";
 import useHttp from "../hooks/use-http";
@@ -45,21 +46,7 @@ const QuoteDetail = () => {
         text={quote.text}
         author={quote.author}
       ></HighlightedQuote>
-      <Routes>
-        <Route
-          path=""
-          exact
-          element={
-            <Link className="btn--flat centered" to={`comments`}>
-              Load Comments
-            </Link>
-          }
-        ></Route>
-        <Route
-          path={`comments`}
-          element={<Comments id={params.quoteId}></Comments>}
-        ></Route>
-      </Routes>
+      <Outlet></Outlet>
     </Card>
   );
 };
