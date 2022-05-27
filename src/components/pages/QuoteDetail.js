@@ -1,8 +1,6 @@
 import { useParams, Outlet } from "react-router-dom";
 import Card from "../UI/Card";
 import HighlightedQuote from "../quotes/HighlightedQuote";
-import { Link, Route, Routes } from "react-router-dom";
-import Comments from "../comments/Comments";
 
 // import { useSelector } from "react-redux";
 import NoQuotesFound from "../quotes/NoQuotesFound";
