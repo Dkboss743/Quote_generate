@@ -1,5 +1,5 @@
 import QuoteForm from "../quotes/QuoteForm";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { quotesAction } from "../store/quotes";
 import { useDispatch, useSelector } from "react-redux";
 import useHttp from "../hooks/use-http";
@@ -7,12 +7,12 @@ import { addQuote } from "../lib/api";
 import { useEffect } from "react";
 const AddQuotes = () => {
   const { sendRequest, status } = useHttp(addQuote);
-  const history = useHistory();
+  const navigate = useNavigate();
   useEffect(() => {
     if (status === "completed") {
-      history.push("/all-quotes");
+      navigate("/all-quotes");
     }
-  }, [status, history]);
+  }, [status, navigate]);
 
   const quotes = useSelector((state) => state.quotes.quotes);
   const dispatch = useDispatch((state) => state.quotes);

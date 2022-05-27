@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom";
 import Card from "../UI/Card";
 import HighlightedQuote from "../quotes/HighlightedQuote";
-import { Link, Route, useRouteMatch } from "react-router-dom";
+import { Link, Route, Routes } from "react-router-dom";
 import Comments from "../comments/Comments";
 // import { useSelector } from "react-redux";
 import NoQuotesFound from "../quotes/NoQuotesFound";
@@ -20,7 +20,6 @@ const QuoteDetail = () => {
 
   const params = useParams();
   const { quoteId } = params;
-  const match = useRouteMatch();
   useEffect(() => {
     sendRequest(quoteId);
   }, [sendRequest, quoteId]);
@@ -46,15 +45,21 @@ const QuoteDetail = () => {
         text={quote.text}
         author={quote.author}
       ></HighlightedQuote>
-      <Route path={match.path} exact>
-        <Link className="btn--flat centered" to={`${match.url}/comments`}>
-          Load Comments
-        </Link>
-      </Route>
-
-      <Route path={`${match.path}/comments`}>
-        <Comments id={+params.quoteId}></Comments>
-      </Route>
+      <Routes>
+        <Route
+          path=""
+          exact
+          element={
+            <Link className="btn--flat centered" to={`comments`}>
+              Load Comments
+            </Link>
+          }
+        ></Route>
+        <Route
+          path={`comments`}
+          element={<Comments id={params.quoteId}></Comments>}
+        ></Route>
+      </Routes>
     </Card>
   );
 };

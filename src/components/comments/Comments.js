@@ -11,6 +11,7 @@ const Comments = (props) => {
   const startAddCommentHandler = () => {
     setIsAddingComment(true);
   };
+
   const { id } = props;
   const { sendRequest, status, data: loadedComments } = useHttp(getAllComments);
 

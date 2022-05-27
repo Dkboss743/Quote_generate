@@ -1,11 +1,10 @@
-import { useRef, useState } from "react";
-import { Prompt } from "react-router-dom";
+import { useRef } from "react";
 import Card from "../UI/Card";
 import LoadingSpinner from "../UI/LoadingSpinner";
 import classes from "./QuoteForm.module.css";
 import { Fragment } from "react";
 const QuoteForm = (props) => {
-  const [focusForm, setFocusForm] = useState(false);
+  // const [focusForm, setFocusForm] = useState(false);
   const authorInputRef = useRef();
   const textInputRef = useRef();
 
@@ -15,24 +14,24 @@ const QuoteForm = (props) => {
     const enteredText = textInputRef.current.value;
     props.onAddQuote({ author: enteredAuthor, text: enteredText });
   }
-  const focusFormHandler = () => {
-    setFocusForm(true);
-  };
-  const btnClickHandler = () => {
-    setFocusForm(false);
-  };
+  // const focusFormHandler = () => {
+  //   setFocusForm(true);
+  // };
+  // const btnClickHandler = () => {
+  //   setFocusForm(false);
+  // };
 
   return (
     <Fragment>
-      <Prompt
+      {/* <Prompt
         when={focusForm}
         message={(location) =>
           "Are you sure you want to leave data will be lost"
         }
-      ></Prompt>
+      ></Prompt> */}
       <Card>
         <form
-          onFocus={focusFormHandler}
+          // onFocus={focusFormHandler}
           className={classes.form}
           onSubmit={submitFormHandler}
         >
@@ -51,9 +50,7 @@ const QuoteForm = (props) => {
             <textarea id="text" rows="5" ref={textInputRef}></textarea>
           </div>
           <div className={classes.actions}>
-            <button onClick={btnClickHandler} className="btn">
-              Add Quote
-            </button>
+            <button className="btn">Add Quote</button>
           </div>
         </form>
       </Card>
